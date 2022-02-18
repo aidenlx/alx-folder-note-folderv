@@ -1,3 +1,10 @@
+# 1.0.0 (2022-02-18)
+
+
+### Features
+
+* migrate folderv to dedicated repo ([66aaab3](https://github.com/aidenlx/alx-folder-note-folderv/commit/66aaab3b3c70aa7867927163835900570df493df))
+
 ## [0.12.3](https://github.com/aidenlx/alx-folder-note/compare/0.12.2...0.12.3) (2021-12-04)
 
 
