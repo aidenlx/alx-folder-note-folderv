@@ -1,3 +1,5 @@
+import "./settings.less";
+
 import { debounce, PluginSettingTab, Setting } from "obsidian";
 
 import Folderv from "./fv-main";
@@ -46,20 +48,23 @@ export class FoldervSettingTab extends PluginSettingTab {
         "Maximum length of brief generated from 1st paragraph of notes when not description field is set in frontmatter",
       )
       .addText((text) => {
+        text.inputEl.type = "number";
+        text.inputEl.min = "1";
+        text.inputEl.step = "1";
+        text.inputEl.insertAdjacentElement(
+          "afterend",
+          createSpan({ cls: "validity" }),
+        );
         const save = debounce(
           async (value: string) => {
+            if (!text.inputEl.checkValidity()) return;
             settings.briefMax = +value;
             await this.plugin.saveSettings();
           },
           500,
           true,
         );
-        text
-          .setValue(settings.briefMax.toString())
-          .onChange(async (value: string) => {
-            text.inputEl.toggleClass("incorrect", !isPositiveInteger(value));
-            if (isPositiveInteger(value)) save(value);
-          });
+        text.setValue(settings.briefMax.toString()).onChange(save);
       });
   }
   setH1AsTitle(containerEl: HTMLElement) {
