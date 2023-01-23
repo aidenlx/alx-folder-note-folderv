@@ -1,6 +1,6 @@
 {
-  "id": "alx-folder-note-folderv",
-  "name": "AidenLx's Folder Note - folderv component",
+  "id": "folderv-dev",
+  "name": "AidenLx's - folderv-dev component",
   "version": "1.0.0",
   "minAppVersion": "0.12.5",
   "description": "Optional `folderv` Component for alx-folder-note",
