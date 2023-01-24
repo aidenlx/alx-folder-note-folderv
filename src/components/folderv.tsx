@@ -25,15 +25,35 @@ const getChildren = (
 ): Path_Types | null => {
   const { vault } = plugin.app,
     folder = vault.getAbstractFileByPath(folderPath),
-    internalFilter = (af: TAbstractFile): af is TFile =>
-      af instanceof TFile &&
+    // MODIFICATION: Allowing folder-notes to pass
+    internalFilter = (af: TAbstractFile):af is TFile =>
+      (af instanceof TFile &&
       plugin.CoreApi.getFolderFromNote(af) === null &&
-      (!filter || filter(af.name));
+      (!filter || filter(af.name))) || 
+      // allowing folder notes to be included
+      (af instanceof TFolder &&
+        plugin.CoreApi.getFolderNote(af) != null),
+    // ADDITION: if it's a folder-note, then return the appropriate path
+    getCustomPath = (af: TAbstractFile): string => {
+      if (af instanceof TFile) return (af as TFile).path; 
+      else if (af instanceof TFolder) {
+        // safe, as covered by internalFilter? (probably needs better handling..)
+        var folderNote=plugin.CoreApi.getFolderNote(af);
+        if (folderNote!=null) return folderNote.path;
+      }
+
+      return "";
+    }
+
   if (folder instanceof TFolder) {
     let children = OrderedMap<string, FileInfo>().withMutations((map) =>
       folder.children.forEach(
         (file) =>
-          internalFilter(file) && map.set(file.path, FileInfo({ file })),
+          {
+          // MODIFICATION: adjusting path if its a folder note
+          internalFilter(file) && map.set(getCustomPath(file), FileInfo({ file }))
+          }
+          ,
       ),
     );
     return children;
