@@ -69,13 +69,15 @@ export default class Folderv extends Plugin {
     console.log("loading alx-folder-note-folderv");
 
     await this.loadSettings();
+
     this.registerMarkdownCodeBlockProcessor(
       FOLDERV_ID,
       GetFolderVHandler(this),
     );
-    if (!this.app.plugins.plugins["alx-folder-note"]) {
+    // CHECK: due to renaming, I'm forcing this plugin to have it's own name
+    // if (!this.app.plugins.plugins["alx-folder-note"]) {
       this.addSettingTab(this.settingTab);
-    }
+    // }
   }
 
   // onunload() {

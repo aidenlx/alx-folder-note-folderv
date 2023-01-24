@@ -1,3 +1,14 @@
+# QUICK 'N DIRTY SUPPORT FOR NOTE FILES
+- when looking for files, I am also allowing folders that are actually folder-notes
+  - simply adjusting the path for those
+- I dont think this is properly supported:
+  - added just few of lines at file: `folderv.tsx`
+  - I don't even know that JS variant is that I'm writing..
+  - descriptions/tags, or custom titles from H1's:
+    - probably OK, as the foldernote path is used (ie `FOO/FOO.md`)
+    - but I don't use these anyway (I hide them afterwards w/ CSS and presenting a list)
+  - custom filtering could also be an issue
+
 # 1.0.0 (2022-02-18)
 
 
